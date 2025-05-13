@@ -5,12 +5,13 @@ fn main() {
     let (left, right) = create_vecs(data);
     let total = subtract_values(&left, &right);
     println!("Part 1: {:?}", total);
-    let total2 = get_similarity_score(left,right);
+    let total2 = get_similarity_score(left, right);
     println!("Part 2: {:?}", total2);
 }
 
 fn get_similarity_score(data1: Vec<i32>, data2: Vec<i32>) -> i32 {
-    data1.iter()
+    data1
+        .iter()
         .map(|i| data2.iter().filter(|x| *x == i).count() as i32 * i)
         .sum()
 }
@@ -48,10 +49,10 @@ fn convert_vec_to_numbers(data: Vec<String>) -> Result<Vec<i32>, std::num::Parse
 
 fn read_data(path: &str) -> Vec<String> {
     read_to_string(path)
-        .unwrap()  
-        .lines()  
-        .map(String::from) 
-        .collect() 
+        .unwrap()
+        .lines()
+        .map(String::from)
+        .collect()
 }
 
 #[cfg(test)]
@@ -61,28 +62,30 @@ mod tests {
     #[test]
     fn test_part_one() {
         let test_data = vec![
-                String::from("3   4"),
-                String::from("4   3"),
-                String::from("2   5"),
-                String::from("1   3"),
-                String::from("3   9"),
-                String::from("3   3")];
+            String::from("3   4"),
+            String::from("4   3"),
+            String::from("2   5"),
+            String::from("1   3"),
+            String::from("3   9"),
+            String::from("3   3"),
+        ];
         let (left, right) = create_vecs(test_data);
-        let total = subtract_values(&left,&right);
+        let total = subtract_values(&left, &right);
         assert_eq!(total, 11);
     }
 
     #[test]
     fn test_part_two() {
         let test_data = vec![
-                String::from("3   4"),
-                String::from("4   3"),
-                String::from("2   5"),
-                String::from("1   3"),
-                String::from("3   9"),
-                String::from("3   3")];
+            String::from("3   4"),
+            String::from("4   3"),
+            String::from("2   5"),
+            String::from("1   3"),
+            String::from("3   9"),
+            String::from("3   3"),
+        ];
         let (left, right) = create_vecs(test_data);
-        let total = get_similarity_score(left,right);
+        let total = get_similarity_score(left, right);
         assert_eq!(total, 31);
     }
 }

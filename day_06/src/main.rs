@@ -35,14 +35,15 @@ fn game_loop(mut data: Vec<ObstacleMap>) -> usize {
                 {
                     if check_position.ch == '#' {
                         if let Some(next) = data
-                                            .iter_mut()
-                                            .find(|loc| loc.x == position.x + 1 && loc.y == position.y) {
-                                                next.direction = Direction::Right;
-                                                next.visited = true;
-                                                position = next.clone();
-                                            } else {
-                                                break;
-                                            }
+                            .iter_mut()
+                            .find(|loc| loc.x == position.x + 1 && loc.y == position.y)
+                        {
+                            next.direction = Direction::Right;
+                            next.visited = true;
+                            position = next.clone();
+                        } else {
+                            break;
+                        }
                     } else {
                         check_position.direction = Direction::Up;
                         check_position.visited = true;
@@ -59,14 +60,15 @@ fn game_loop(mut data: Vec<ObstacleMap>) -> usize {
                 {
                     if check_position.ch == '#' {
                         if let Some(next) = data
-                                            .iter_mut()
-                                            .find(|loc| loc.x == position.x && loc.y == position.y + 1) {
-                                                next.direction = Direction::Down;
-                                                next.visited = true;
-                                                position = next.clone();
-                                            } else {
-                                                break;
-                                            }
+                            .iter_mut()
+                            .find(|loc| loc.x == position.x && loc.y == position.y + 1)
+                        {
+                            next.direction = Direction::Down;
+                            next.visited = true;
+                            position = next.clone();
+                        } else {
+                            break;
+                        }
                     } else {
                         check_position.direction = Direction::Right;
                         check_position.visited = true;
@@ -83,14 +85,15 @@ fn game_loop(mut data: Vec<ObstacleMap>) -> usize {
                 {
                     if check_position.ch == '#' {
                         if let Some(next) = data
-                                            .iter_mut()
-                                            .find(|loc| loc.x == position.x - 1 && loc.y == position.y) {
-                                                next.direction = Direction::Left;
-                                                next.visited = true;
-                                                position = next.clone();
-                                            } else {
-                                                break;
-                                            }
+                            .iter_mut()
+                            .find(|loc| loc.x == position.x - 1 && loc.y == position.y)
+                        {
+                            next.direction = Direction::Left;
+                            next.visited = true;
+                            position = next.clone();
+                        } else {
+                            break;
+                        }
                     } else {
                         check_position.direction = Direction::Down;
                         check_position.visited = true;
@@ -107,14 +110,15 @@ fn game_loop(mut data: Vec<ObstacleMap>) -> usize {
                 {
                     if check_position.ch == '#' {
                         if let Some(next) = data
-                                            .iter_mut()
-                                            .find(|loc| loc.x == position.x && loc.y == position.y - 1) {
-                                                next.direction = Direction::Up;
-                                                next.visited = true;
-                                                position = next.clone();
-                                            } else {
-                                                break;
-                                            }
+                            .iter_mut()
+                            .find(|loc| loc.x == position.x && loc.y == position.y - 1)
+                        {
+                            next.direction = Direction::Up;
+                            next.visited = true;
+                            position = next.clone();
+                        } else {
+                            break;
+                        }
                     } else {
                         check_position.direction = Direction::Left;
                         check_position.visited = true;
@@ -159,4 +163,17 @@ fn read_input(path: &str) -> Vec<String> {
         .lines()
         .map(String::from)
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part_one() {
+        let data = read_input("src/test.txt");
+        let data_converted = convert_to_obstacle_map(data);
+        let total = game_loop(data_converted);
+        assert_eq!(41, total);
+    }
 }
